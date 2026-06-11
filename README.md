@@ -1,73 +1,82 @@
-# React + TypeScript + Vite
+# SatuRT - Aplikasi Manajemen RT - JagoanHosting
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SatuRT adalah aplikasi untuk manajemen Rukun Tetangga (RT) yang mencakup fungsionalitas untuk mengelola penghuni, rumah, generate tagihan bulanan, pencatatan iuran, hingga laporan keuangan dan export file ke Excel.
 
-Currently, two official plugins are available:
+- Backend: Pure REST API dengan Laravel 11
+- Frontend: React + Vite + Shadcn UI
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Requirements
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Kebutuhan Backend (Server)
 
-## Expanding the ESLint configuration
+- **PHP**: 8.3.31
+- **Composer**: Versi 2.4.1
+- **Database**: MySQL 8.0.30
+- **Ekstensi PHP**:
+  - ext-pdo
+  - ext-mbstring
+  - ext-openssl
+  - ext-gd
+  - ext-zip
+  - ext-fileinfo
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Kebutuhan Frontend (Client)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Node.js**: 24.8.0
+- **NPM**: 11.6.0
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Panduan Instalasi (Step-by-Step)
+
+### Setup Backend (Laravel)
+
+```bash
+git clone https://github.com/SiPilip/saturt-backend
+cd saturt-backend
+composer install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+**Buat Database MySQL**, buat database kosong dengan nama: `saturt_db`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+**Konfigurasi Environment (.env)**
+Salin file `.env.example` menjadi `.env`. Di Windows jalankan:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+copy .env.example .env
 ```
+
+Jalankan perintah setup berikut:
+
+```bash
+php artisan key:generate
+php artisan jwt:secret
+php artisan storage:link
+php artisan migrate --seed
+php artisan serve
+```
+
+---
+
+### Setup Frontend (React + Vite)
+
+_Buka terminal baru untuk frontend._
+
+```bash
+cd saturt-frontend
+npm install
+npm run dev
+```
+
+---
+
+## Kredensial Login
+
+- **NIK:** `3271000000000001`
+- **Password:** `admin123`
+
+---
+
+_Developed for Skill Fit Test._
